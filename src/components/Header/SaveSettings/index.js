@@ -1,59 +1,37 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Save from '@material-ui/icons/Save';
 
-import {
-  withStyles
-} from '@material-ui/core/styles';
-
-/**
- * Gets the component styles
- * @param {Object} theme The theme
- * @returns {Object} The component styles
- */
-const styles = function (theme) {
-  return {
-    root: {
-      display: 'inline-block'
-    },
-    wrapper: {
-      display: 'flex',
-      alignItems: 'center',
-      marginLeft: `${theme.spacing(3)}px`
-    },
-    label: {
-      marginLeft: `${theme.spacing(1)}px`
-    }
-  };
-};
+import MenuEntry from '../MenuEntry';
 
 /**
  * Gets the save settings entry
  */
 class SaveSettings extends React.Component {
   /**
-   * The props
+   * The constructor
    * @param {Object} props The properties
    */
   constructor(props) {
     super(props);
 
     this.state = {
-      toggled: true
+      open: true
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleOpen = this.handleOpenState.bind(this, true);
+    this.handleClose = this.handleOpenState.bind(this, false);
   }
 
   /**
-   * Handles the click
+   * Handles the open state
+   * @param {Boolean} isOpen If the dialog is open
    * @returns {undefined}
    */
-  handleClick() {
-    this.setState(state => ({
-      toggled: !state.toggled
-    }));
+  handleOpenState(isOpen) {
+    this.setState({
+      open: isOpen
+    });
   }
 
   /**
@@ -61,29 +39,14 @@ class SaveSettings extends React.Component {
    * @returns {Object} The save settings entry
    */
   render() {
-    const {
-      classes
-    } = this.props;
-
     return (
-      <div className={classes.root} onClick={this.handleClick}>
-        <div className={classes.wrapper}>
-          <Save />
-          <span className={classes.label}>
-              Save Mask Settings
-          </span>
-        </div>
-      </div>
+      <MenuEntry
+        icon={<Save />}
+        onClick={this.handleOpen}
+        label="Save Mask Settings"
+      />
     );
   }
 }
 
-export default withStyles(styles)(SaveSettings);
-
-SaveSettings.propTypes = {
-  classes: PropTypes.shape({
-    root: PropTypes.object,
-    wrapper: PropTypes.object,
-    label: PropTypes.object
-  })
-};
+export default SaveSettings;

@@ -1,59 +1,37 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Settings from '@material-ui/icons/Settings';
 
-import {
-  withStyles
-} from '@material-ui/core/styles';
-
-/**
- * Gets the component styles
- * @param {Object} theme The theme
- * @returns {Object} The component styles
- */
-const styles = function (theme) {
-  return {
-    root: {
-      display: 'inline-block'
-    },
-    wrapper: {
-      display: 'flex',
-      alignItems: 'center',
-      marginLeft: `${theme.spacing(3)}px`
-    },
-    label: {
-      marginLeft: `${theme.spacing(1)}px`
-    }
-  };
-};
+import MenuEntry from '../MenuEntry';
 
 /**
  * The load setting entry
  */
 class LoadSettings extends React.Component {
   /**
-   * The props
+   * The constructor
    * @param {Object} props The properties
    */
   constructor(props) {
     super(props);
 
     this.state = {
-      toggled: true
+      open: true
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleOpen = this.handleOpenState.bind(this, true);
+    this.handleClose = this.handleOpenState.bind(this, false);
   }
 
   /**
-   * Handles the click
+   * Handles the open state
+   * @param {Boolean} isOpen If the dialog is open
    * @returns {undefined}
    */
-  handleClick() {
-    this.setState(state => ({
-      toggled: !state.toggled
-    }));
+  handleOpenState(isOpen) {
+    this.setState({
+      open: isOpen
+    });
   }
 
   /**
@@ -61,29 +39,14 @@ class LoadSettings extends React.Component {
    * @returns {Object} The load file entry
    */
   render() {
-    const {
-      classes
-    } = this.props;
-
     return (
-      <div className={classes.root} onClick={this.handleClick}>
-        <div className={classes.wrapper}>
-          <Settings />
-          <span className={classes.label}>
-              Load Mask Settings
-          </span>
-        </div>
-      </div>
+      <MenuEntry
+        icon={<Settings />}
+        onClick={this.handleClick}
+        label="Load Mask Settings"
+      />
     );
   }
 }
 
-export default withStyles(styles)(LoadSettings);
-
-LoadSettings.propTypes = {
-  classes: PropTypes.shape({
-    root: PropTypes.object,
-    wrapper: PropTypes.object,
-    label: PropTypes.object
-  })
-};
+export default LoadSettings;
