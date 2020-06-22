@@ -11,9 +11,6 @@ import Publish from '@material-ui/icons/Publish';
 
 import MenuEntry from '../MenuEntry';
 
-const fs = require('browserify-fs');
-const csv = require('csv-parser');
-
 const INPUT_TYPES = [
   '.csv',
   'text/csv'
@@ -61,24 +58,7 @@ class LoadFile extends React.Component {
   handleFileChange() {
     const file = document.getElementById('fileToLoad').files[0].path;
 
-    fs.readFile(file, 'utf-8', function (err, data) {
-      console.log(err);
-      console.log(data);
-    });
-
-    fs.createReadStream(file)
-      .pipe(csv())
-      .on('error', function (err) {
-        console.log(err);
-      })
-      .on('headers', function (headers) {
-        console.log(headers);
-      })
-      .on('data', function (data) {
-        console.log(data);
-      }).on('end', function () {
-        console.log('end');
-      });
+    window.api.request(window.api.types.FILE_OPEN, file);
 
     this.handleOpenState(false);
   }

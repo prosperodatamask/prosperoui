@@ -20,17 +20,31 @@ const appMenu = {
   ]
 };
 
-const file = {
-  label: 'File',
-  submenu: [
-    {
-      label: 'Open File'
-    },
-    {
-      label: 'Save Masked Data'
-    }
-  ]
-};
+/**
+ * Gets the file menu entry
+ * @param {Object} mainWindow The main window
+ * @returns {Object} The file entry
+ */
+function getFileEntry(mainWindow) {
+  return {
+    label: 'File',
+    submenu: [
+      {
+        label: 'Open File',
+        /**
+         * Click handler
+         * @returns {undefined}
+         */
+        click() {
+          mainWindow.webContents.send('FILE_LOADED', 'hello world');
+        }
+      },
+      {
+        label: 'Save Masked Data'
+      }
+    ]
+  };
+}
 
 const settings = {
   label: 'Settings',
@@ -54,18 +68,18 @@ const tools = {
   ]
 };
 
-const menuTemplate = [
-  appMenu,
-  file,
-  settings,
-  tools
-];
-
 /**
  * Sets the application menu
+ * @param {Object} mainWindow The main window
  * @returns {undefined}
  */
-function setMenu() {
+function setMenu(mainWindow) {
+  const menuTemplate = [
+    appMenu,
+    getFileEntry(mainWindow),
+    settings,
+    tools
+  ];
   const menu = Menu.buildFromTemplate(menuTemplate);
 
   Menu.setApplicationMenu(menu);

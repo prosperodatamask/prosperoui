@@ -35,6 +35,16 @@ const styles = function (theme) {
  */
 class FieldListing extends React.Component {
   /**
+   * Handle messages when data is loaded
+   * @returns {undefined}
+   */
+  componentDidMount() {
+    window.api.response(window.api.types.HEADERS_LOADED, function (data) {
+      console.log(data);
+    });
+  }
+
+  /**
    * Renders the field setting page
    * @returns {Object} The field settings
    */

@@ -8,6 +8,7 @@ const path = require('path');
 const url = require('url');
 
 const electron_menu = require('./electron/menu');
+const electron_ipc = require('./electron/ipc');
 
 let mainWindow;
 
@@ -21,16 +22,19 @@ function createWindow() {
     height: 600,
     title: 'Prospero',
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
+      preload: path.join(__dirname, 'electron/preload.js')
     }
   });
 
-  electron_menu.setMenu();
+  electron_menu.setMenu(mainWindow);
+  electron_ipc.handlers(mainWindow);
 
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
         url.format({
-          //pathname: path.join(__dirname, '../build/index.html'),
           pathname: 'index.html',
           protocol: 'file:',
           slashes: true
