@@ -1,5 +1,6 @@
 {
   "name": "prospero",
+  "productName": "Prospero",
   "version": "0.1.0",
   "author": "Patrick Connelly (patrick@connelly.dev)",
   "description": "The UI frontend for Prospero.  A data masking tool focused on taking in CVS/JSON files and masking the data.  Focused primarily on Salesforce data.",
@@ -10,6 +11,7 @@
     "@material-ui/icons": "^4.9.1",
     "browserify-fs": "^1.0.0",
     "csv-parser": "^2.3.3",
+    "electron-is-dev": "^1.2.0",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -57,6 +59,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
     "babel-eslint": "^10.1.0",
     "electron": "^9.0.4",
     "electron-builder": "^22.7.0",
@@ -68,9 +73,6 @@
     "eslint-plugin-jquery": "^1.5.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
     "foreman": "^3.0.1",
     "prop-types": "^15.7.2"
   }

@@ -2,44 +2,63 @@ const {
   Menu
 } = require('electron');
 
+const isDev = require('electron-is-dev');
+
+const appMenu = {
+  label: 'Prospero',
+  role: 'appMenu',
+  submenu: [
+    {
+      role: 'hide'
+    },
+    {
+      role: 'separator'
+    },
+    {
+      role: 'quit'
+    }
+  ]
+};
+
+const file = {
+  label: 'File',
+  submenu: [
+    {
+      label: 'Open File'
+    },
+    {
+      label: 'Save Masked Data'
+    }
+  ]
+};
+
+const settings = {
+  label: 'Settings',
+  submenu: [
+    {
+      label: 'Open Mask Settings'
+    },
+    {
+      label: 'Save Mask Settings'
+    }
+  ]
+};
+
+const tools = {
+  label: 'Tools',
+  visible: isDev,
+  submenu: [
+    {
+      role: 'toggleDevTools'
+    }
+  ]
+};
+
 const menuTemplate = [
-  {
-    label: 'Prospero',
-    role: 'appMenu',
-    submenu: [
-      {
-        role: 'hide'
-      },
-      {
-        role: 'separator'
-      },
-      {
-        role: 'quit'
-      }
-    ]
-  },
-  {
-    label: 'File',
-    submenu: [
-      {
-        label: 'Open File'
-      },
-      {
-        label: 'Save Masked Data'
-      }
-    ]
-  },
-  {
-    label: 'Settings',
-    submenu: [
-      {
-        label: 'Open Mask Settings'
-      },
-      {
-        label: 'Save Mask Settings'
-      }
-    ]
-  }
+  appMenu,
+  file,
+  settings,
+  tools
 ];
 
 /**
