@@ -69,8 +69,8 @@ export default withStyles(styles)(FieldListing);
 
 FieldListing.propTypes = {
   classes: PropTypes.shape({
-    header: PropTypes.object,
-    row: PropTypes.object,
-    more: PropTypes.object
+    header: PropTypes.string,
+    row: PropTypes.string,
+    more: PropTypes.string
   })
 };

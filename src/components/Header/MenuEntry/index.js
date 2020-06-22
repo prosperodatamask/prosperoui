@@ -59,9 +59,9 @@ export default withStyles(styles)(MenuEntry);
 
 MenuEntry.propTypes = {
   classes: PropTypes.shape({
-    root: PropTypes.object,
-    wrapper: PropTypes.object,
-    label: PropTypes.object
+    root: PropTypes.string,
+    wrapper: PropTypes.string,
+    label: PropTypes.string
   }),
   icon: PropTypes.object,
   label: PropTypes.string,

@@ -4,10 +4,13 @@
   "author": "Patrick Connelly (patrick@connelly.dev)",
   "description": "The UI frontend for Prospero.  A data masking tool focused on taking in CVS/JSON files and masking the data.  Focused primarily on Salesforce data.",
   "private": true,
-  "main": "src/start.js",
+  "main": "public/electron.js",
   "dependencies": {
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
+    "browserify-fs": "^1.0.0",
+    "csv-parser": "^2.3.3",
+    "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"

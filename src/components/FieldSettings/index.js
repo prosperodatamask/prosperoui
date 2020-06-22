@@ -51,6 +51,6 @@ export default withStyles(styles)(FieldSettings);
 
 FieldSettings.propTypes = {
   classes: PropTypes.shape({
-    header: PropTypes.object
+    header: PropTypes.string
   })
 };
