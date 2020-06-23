@@ -4,6 +4,8 @@ const {
 
 const isDev = require('electron-is-dev');
 
+const constants = require('./constants');
+
 const appMenu = {
   label: 'Prospero',
   role: 'appMenu',
@@ -31,12 +33,13 @@ function getFileEntry(mainWindow) {
     submenu: [
       {
         label: 'Open File',
+        accelerator: 'CmdOrCtrl+O',
         /**
          * Click handler
          * @returns {undefined}
          */
         click() {
-          mainWindow.webContents.send('FILE_LOADED', 'hello world');
+          mainWindow.webContents.send(constants.FILE_OPEN_REQUESTED);
         }
       },
       {

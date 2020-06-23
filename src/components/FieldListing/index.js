@@ -3,6 +3,18 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 
 import {
+  compose
+} from 'redux';
+
+import {
+  connect
+} from 'react-redux';
+
+import {
+  setHeaders
+} from '../../actions';
+
+import {
   withStyles
 } from '@material-ui/core/styles';
 
@@ -31,6 +43,40 @@ const styles = function (theme) {
 };
 
 /**
+ * Gets the partial state we need
+ * @param {Object} state The state
+ * @returns {Object} The reduced state
+ */
+function mapStateToProps(state) {
+  return {
+    headers: state.headers
+  };
+}
+
+/**
+ * Dispatches the headers
+ * @param {Function} dispatch The dispatch function
+ * @param {Object[]} headers The headers
+ * @returns {undefined}
+ */
+function dispatchHeaders(dispatch, headers) {
+  dispatch(setHeaders([ ...headers ]));
+}
+
+/**
+ * Maps the dispatch to props
+ * @param {Function} dispatch The dispatch function
+ * @returns {Object} The props to update
+ */
+function mapDispatchToProps(dispatch) {
+  const dispatch_headers = dispatchHeaders.bind(undefined, dispatch);
+
+  return {
+    setHeaders: dispatch_headers
+  };
+}
+
+/**
  * Lists out all the fields from the data file
  */
 class FieldListing extends React.Component {
@@ -39,9 +85,7 @@ class FieldListing extends React.Component {
    * @returns {undefined}
    */
   componentDidMount() {
-    window.api.response(window.api.types.HEADERS_LOADED, function (data) {
-      console.log(data);
-    });
+    window.api.response(window.api.types.HEADERS_LOADED, this.props.setHeaders);
   }
 
   /**
@@ -61,23 +105,33 @@ class FieldListing extends React.Component {
             <Grid item xs={8}>Mask Type</Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Grid container spacing={0}>
-            <Grid item xs={4}>Id</Grid>
-            <Grid item xs={8}>
-              Salesforce Id (Mask)
-              <span className={classes.more}>...</span>
+        {this.props.headers.map(function (header, index) {
+          return <Grid item xs={12} key={index}>
+            <Grid container spacing={0}>
+              <Grid item xs={4}>{header.label}</Grid>
+              <Grid item xs={8}>
+                {header.transform.label}
+                <span className={classes.more}>...</span>
+              </Grid>
             </Grid>
-          </Grid>
-        </Grid>
+          </Grid>;
+        })}
       </Grid>
     );
   }
 }
 
-export default withStyles(styles)(FieldListing);
+export default compose(
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(FieldListing);
 
 FieldListing.propTypes = {
+  headers: PropTypes.array,
+  setHeaders: PropTypes.func,
   classes: PropTypes.shape({
     header: PropTypes.string,
     row: PropTypes.string,

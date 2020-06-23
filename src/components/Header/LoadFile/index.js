@@ -28,7 +28,8 @@ class LoadFile extends React.Component {
     super(props);
 
     this.state = {
-      open: false
+      open: false,
+      filename: 'No File Loaded...'
     };
 
     this.fileInputProps = {
@@ -58,9 +59,22 @@ class LoadFile extends React.Component {
   handleFileChange() {
     const file = document.getElementById('fileToLoad').files[0].path;
 
+    this.setState({
+      filename: file
+    });
+
     window.api.request(window.api.types.FILE_OPEN, file);
 
     this.handleOpenState(false);
+  }
+
+  /**
+   * Set up the handlers once the component is mounted
+   * @returns {undefined}
+   */
+  componentDidMount() {
+    const handleOpen = this.handleOpenState.bind(this, true);
+    window.api.response(window.api.types.FILE_OPEN_REQUESTED, handleOpen);
   }
 
   /**
@@ -78,10 +92,7 @@ class LoadFile extends React.Component {
         <Dialog open={this.state.open} onClose={this.handleClose}>
           <DialogTitle>Load File</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              To subscribe to this website, please enter your email address here. We will send updates
-              occasionally.
-            </DialogContentText>
+            <DialogContentText>{this.state.filename}</DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">Cancel</Button>
