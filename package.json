@@ -36,9 +36,10 @@
     "appId": "dev.prospero.ui",
     "mac": {
       "category": "public.app-category.utilities",
-      "target": [
-        "dir"
-      ]
+      "target": "default"
+    },
+    "dmg": {
+      "backgroundColor": "#cccccc"
     },
     "directories": {
       "buildResources": "public"

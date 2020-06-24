@@ -21,6 +21,7 @@ function createWindow() {
     width: 800,
     height: 600,
     title: 'Prospero',
+    icon: path.join(__dirname, 'logo192.png'),
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
